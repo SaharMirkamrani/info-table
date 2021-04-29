@@ -5,7 +5,7 @@ const Input = ({ title, type }) => {
     <>
       <form className={styles.form}>
         <label className={styles.label}>{title} : </label>
-        <input className={styles.input} type={type} />
+        <input className={styles.input} type={type} name={title} />
       </form>
     </>
   );
