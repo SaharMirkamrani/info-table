@@ -1,6 +1,8 @@
 import data from '../api/data.json';
 
-const compareDate = (date1, date2) => {
+const compareDate = (d1, d2) => {
+  const date1 = d1.split('-');
+  const date2 = d2.split('-');
   if (date1[0] === date2[0] && date1[1] === date2[1] && date1[2] === date2[2])
     return 0;
 
@@ -12,9 +14,9 @@ const compareDate = (date1, date2) => {
 
 class BSTree {
   static createTree(data) {
-    const root = null;
+    let root = null;
     data.forEach((d) => {
-      BSTree.addNode(root, new Node(d));
+      root = BSTree.addNode(root, new Node(d));
     });
     return root;
   }
@@ -22,31 +24,37 @@ class BSTree {
   static addNode(root, node) {
     if (root === null) {
       root = node;
-      return;
+      return root;
     }
-    let currentNode,
-      preNode = root;
+
+    let currentNode = root;
+    let preNode = null;
     while (currentNode !== null) {
       preNode = currentNode;
-      if (compareDate(node.date, currentNode.date) === 1)
+      if (compareDate(node.data.date, currentNode.data.date) === 1)
         currentNode = currentNode.right;
       else currentNode = currentNode.left;
     }
 
-    if (compareDate(node.date, preNode.date) === 1) preNode.right = node;
+    if (compareDate(node.data.date, preNode.data.date) === 1)
+      preNode.right = node;
     else preNode.left = node;
+    return root;
   }
 
   static searchNode(root, date) {
-    if (root === null) return null;
+    let result = [];
+    if (root === null) return result;
     let currentNode = root;
     while (currentNode !== null) {
-      let result = compareDate(date, currentNode.date);
-      if (result === 0) return;
-      else if (result === 1) currentNode = currentNode.right;
-      else if (result === -1) currentNode = currentNode.left;
+      let compare = compareDate(date, currentNode.data.date);
+      if (compare === 0) {
+        result = [...result, currentNode.data];
+        currentNode = currentNode.left;
+      } else if (compare === 1) currentNode = currentNode.right;
+      else if (compare === -1) currentNode = currentNode.left;
     }
-    return null;
+    return result;
   }
 }
 
@@ -58,4 +66,7 @@ class Node {
   }
 }
 
-const root = BSTree.createTree(data);
+export default function findDate(date) {
+  const root = BSTree.createTree(data);
+  return BSTree.searchNode(root, date);
+}

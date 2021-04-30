@@ -2,6 +2,7 @@ import { useState } from 'react';
 import image from '../images/filter-icon.png';
 import styles from '../styles/Header.module.css';
 import data from '../api/data.json';
+import findDate from '../BST/BST';
 
 const Header = ({ setFilteredData }) => {
   const [formData, setFormData] = useState({
@@ -16,13 +17,20 @@ const Header = ({ setFilteredData }) => {
   };
 
   const submitHandler = (e) => {
-    console.log('date', formData.date);
     e.preventDefault();
-    const { personName, title } = formData;
-    const filteredData = data.filter(
+    console.log(formData.date);
+    const { personName, title, date } = formData;
+    let filteredData = data;
+    if (date) {
+      const res = findDate(date);
+      console.log(res);
+      filteredData = res;
+    }
+    filteredData = filteredData.filter(
       (d) =>
-        d.name.toLowerCase().includes(personName.toLowerCase()) &&
-        d.title.includes(title)
+        (personName
+          ? d.name.toLowerCase().includes(personName.toLowerCase())
+          : true) && (title ? d.title.includes(title) : true)
     );
     setFilteredData(filteredData);
   };
