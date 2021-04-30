@@ -1,12 +1,7 @@
-import styles from '../styles/Table.module.css';
-import { useEffect, useContext } from 'react';
 import data from '../api/data.json';
-import { FilterContext } from '../context/filter-context';
+import styles from '../styles/Table.module.css';
 
 const Table = () => {
-  const { filtered_ads } = useContext(FilterContext);
-  console.log(filtered_ads);
-
   return (
     <>
       <table className={styles.items}>
@@ -21,7 +16,7 @@ const Table = () => {
           </tr>
         </thead>
         <tbody>
-        {/* {filtered_ads.map(ad => (
+          {/* {filtered_ads.map(ad => (
       <tr key={ad.id}>
       <td>{ad.name}</td>
       <td>{ad.date}</td>
@@ -31,8 +26,7 @@ const Table = () => {
       <td>{ad.new_value}</td>
     </tr>
     ))} */}
-    
-        
+
           <tr>
             <td>{data[0].name}</td>
             <td>{data[0].date}</td>

@@ -1,10 +1,7 @@
-import styles from '../styles/Header.module.css';
-import { FilterContext } from '../context/filter-context';
-import { useContext } from 'react';
 import image from '../images/filter-icon.png';
+import styles from '../styles/Header.module.css';
 
 const Header = () => {
-  const { updateFilters, filterAds } = useContext(FilterContext);
 
   return (
     <>
@@ -15,7 +12,7 @@ const Header = () => {
             className={styles.input}
             type="text"
             name="person-name"
-            onChange={updateFilters}
+            onChange={}
           />
         </div>
 
@@ -25,7 +22,7 @@ const Header = () => {
             className={styles.input}
             type="date"
             name="date"
-            onChange={updateFilters}
+            onChange={}
           />
         </div>
 
@@ -35,7 +32,7 @@ const Header = () => {
             className={styles.input}
             type="text"
             name="ad-name"
-            onChange={updateFilters}
+            onChange={}
           />
         </div>
 
@@ -44,7 +41,7 @@ const Header = () => {
           <select
             className={styles.input}
             name="field"
-            onChange={updateFilters}
+            onChange={}
           >
             <option value="عنوان">عنوان</option>
             <option value="قیمت">قیمت</option>
@@ -53,7 +50,7 @@ const Header = () => {
         <br />
 
         <button
-          onClick={filterAds}
+          onClick={}
           type="submit"
           style={{
             backgroundColor: 'white',
