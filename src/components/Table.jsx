@@ -1,7 +1,7 @@
-import data from '../api/data.json';
 import styles from '../styles/Table.module.css';
+import TableRow from './TableRow';
 
-const Table = () => {
+const Table = ({ filteredData }) => {
   return (
     <>
       <table className={styles.items}>
@@ -27,14 +27,9 @@ const Table = () => {
     </tr>
     ))} */}
 
-          <tr>
-            <td>{data[0].name}</td>
-            <td>{data[0].date}</td>
-            <td>{data[0].title}</td>
-            <td>{data[0].field}</td>
-            <td>{data[0].old_value}</td>
-            <td>{data[0].new_value}</td>
-          </tr>
+          {filteredData.map((data) => (
+            <TableRow {...data} />
+          ))}
         </tbody>
       </table>
     </>
