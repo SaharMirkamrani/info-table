@@ -1,37 +1,7 @@
-import {
-  UPDATE_FILTERS,
-  UPDATE_SORT,
-  SORT_PRODUCTS,
-  FILTER_PRODUCTS,
-} from '../actions';
+import { UPDATE_FILTERS, FILTER_PRODUCTS } from '../actions';
 
 const filter_reducer = (state, action) => {
   switch (action.type) {
-    case UPDATE_SORT: {
-      return { ...state, sort: action.payload };
-    }
-    // case SORT_PRODUCTS: {
-    //   const { sort, filtered_products } = state;
-    //   let tempProducts = [...filtered_products];
-    //   if (sort === 'price-lowest') {
-    //     tempProducts = tempProducts.sort((a, b) => a.price - b.price);
-    //   }
-    //   if (sort === 'price-highest') {
-    //     tempProducts = tempProducts.sort((a, b) => b.price - a.price);
-    //   }
-    //   if (sort === 'name-a') {
-    //     tempProducts = tempProducts.sort((a, b) =>
-    //       a.name.localeCompare(b.name)
-    //     );
-    //   }
-    //   if (sort === 'name-z') {
-    //     tempProducts = tempProducts.sort((a, b) =>
-    //       b.name.localeCompare(a.name)
-    //     );
-    //   }
-    //   return { ...state, filtered_products: tempProducts };
-    // }
-
     case UPDATE_FILTERS: {
       const { name, value } = action.payload;
       console.log(name, value);
@@ -39,26 +9,34 @@ const filter_reducer = (state, action) => {
     }
     case FILTER_PRODUCTS: {
       const { all_ads } = state;
-      const { person_name, date, ad_name } = state.filters;
+      const { person_name, date, ad_name, field } = state.filters;
       let tempAds = [...all_ads];
-			//person name
+      //person name
       if (person_name) {
         tempAds = tempAds.filter((ad) => {
           return ad.name.toLowerCase().includes(person_name);
         });
       }
-      // //category
-      // if (category !== 'all') {
-      //   tempProducts = tempProducts.filter((product) => {
-      //     return product.category === category;
-      //   });
-      // }
-      // //company
-      // if (company) {
-      //   tempProducts = tempProducts.filter((product) => {
-      //     return product.company === company;
-      //   });
-      // }
+      //ad name
+      if (ad_name) {
+        tempAds = tempAds.filter((ad) => {
+          return ad.title.toLowerCase().includes(ad_name);
+        });
+      }
+
+      //sort
+      if (field) {
+        tempAds = tempAds.filter((ad) => {
+          return ad.field === field;
+        });
+      }
+
+      //date name
+      if (date) {
+        tempAds = tempAds.filter((ad) => {
+          return ad.date === date;
+        });
+      }
 
       return { ...state, filtered_ads: tempAds };
     }

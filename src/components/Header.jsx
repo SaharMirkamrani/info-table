@@ -4,11 +4,7 @@ import { useContext } from 'react';
 import image from '../images/filter-icon.png';
 
 const Header = () => {
-  const { updateFilters } = useContext(FilterContext);
-  
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
+  const { updateFilters, filterAds } = useContext(FilterContext);
 
   return (
     <>
@@ -45,20 +41,24 @@ const Header = () => {
 
         <div className={styles.form}>
           <label className={styles.label}> مرتب سازی بر اساس : </label>
-          <select className={styles.input} name="sort">
-            <option value="title">عنوان</option>
-            <option value="price">قیمت</option>
+          <select
+            className={styles.input}
+            name="field"
+            onChange={updateFilters}
+          >
+            <option value="عنوان">عنوان</option>
+            <option value="قیمت">قیمت</option>
           </select>
         </div>
         <br />
-        
+
         <button
-        onClick={handleSubmit}
+          onClick={filterAds}
           type="submit"
           style={{
             backgroundColor: 'white',
             border: 'none',
-            cursor: "pointer"
+            cursor: 'pointer',
           }}
         >
           <img
