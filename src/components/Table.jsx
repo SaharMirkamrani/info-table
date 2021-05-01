@@ -16,19 +16,8 @@ const Table = ({ filteredData }) => {
           </tr>
         </thead>
         <tbody>
-          {/* {filtered_ads.map(ad => (
-      <tr key={ad.id}>
-      <td>{ad.name}</td>
-      <td>{ad.date}</td>
-      <td>{ad.title}</td>
-      <td>{ad.field}</td>
-      <td>{ad.old_value}</td>
-      <td>{ad.new_value}</td>
-    </tr>
-    ))} */}
-
           {filteredData.map((data) => (
-            <TableRow {...data} />
+            <TableRow key={data.id} {...data} />
           ))}
         </tbody>
       </table>

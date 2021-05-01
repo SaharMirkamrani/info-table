@@ -66,7 +66,8 @@ class Node {
   }
 }
 
-export default function findDate(date) {
-  const root = BSTree.createTree(data);
+export const root = BSTree.createTree(data);
+
+export default function findDate(root, date) {
   return BSTree.searchNode(root, date);
 }
